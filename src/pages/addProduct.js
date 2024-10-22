@@ -20,45 +20,109 @@ export default function AddProduct() {
   const [highlights, setHighlights] = useState('');
   const [unit, setUnit] = useState('kg');
   const [images, setImages] = useState([]); // State for images
-  const SubmitData = async (e) => {
+  // const SubmitData = async (e) => {
+  //   e.preventDefault();
+  //   console.log("sss")
+  //   try {
+  //     const docRef = await addDoc(collection(db, 'products'), {
+  //       name: productName,
+  //       price: parseFloat(price),
+  //       description: description,
+  //       weight: weight,
+  //       height: height,
+  //       highlights: highlights,
+  //       warranty: warrantyPeriod,
+  //       length: length,
+  //       category: category,
+  //       brand: brand === 'Brand' ? brandName : 'No Brand',
+  //       warranty: warranty === 'Warranty' ? warrantyPeriod : 'No Warranty',
+
+  //     });
+  //     console.log("Document written with ID: ", docRef);
+  //     // Reset the form or show a success message
+  //   } catch (e) {
+  //     console.error("Error adding document: ", e);
+  //   }
+  // };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   if (!images) {
+  //     alert("Please upload an image.");
+  //     return;
+  //   }
+
+  //   try {
+  //     const storageRef = ref(storage, `images/${images.name}`);
+  //     await uploadBytes(storageRef, images);
+  //     const downloadURL = await getDownloadURL(storageRef);
+
+  //     const docRef = await addDoc(collection(db, 'products'), {
+  //       name: productName,
+  //       category: category,
+  //       brand: brand,
+  //       warranty: warranty,
+  //       weight: weight,
+  //       height: height,
+  //       length: length,
+  //       width: width,
+  //       price: parseFloat(price),
+  //       description: description,
+  //       imageUrl: downloadURL,
+  //     });
+  //     console.log("Document written with ID: ", docRef.id);
+  //     setProductName('');
+  //     setPrice('');
+  //     setDescription('');
+  //     setImages(null);
+
+  //   } catch (error) {
+  //     console.error("Error adding document: ", error);
+  //   }
+  // };
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (images.length === 0) {
+      alert("Please upload at least one image.");
+      return;
+    }
+  
     try {
+      const imageUrls = await Promise.all(images.map(async (image) => {
+        const storageRef = ref(storage, `images/${image.name}`);
+        await uploadBytes(storageRef, image);
+        return await getDownloadURL(storageRef);
+      }));
+  
       const docRef = await addDoc(collection(db, 'products'), {
         name: productName,
         price: parseFloat(price),
         description: description,
         weight: weight,
         height: height,
-        highlights: highlights,
-        warranty: warrantyPeriod,
         length: length,
+        width: width,
         category: category,
         brand: brand === 'Brand' ? brandName : 'No Brand',
         warranty: warranty === 'Warranty' ? warrantyPeriod : 'No Warranty',
-        images: images,
+        highlights: highlights,
+        imageUrl: imageUrls, // Storing multiple image URLs
       });
+  
       console.log("Document written with ID: ", docRef.id);
-      // Reset the form or show a success message
-    } catch (e) {
-      console.error("Error adding document: ", e);
+      setProductName('');
+      setPrice('');
+      setDescription('');
+      setImages([]);
+  
+    } catch (error) {
+      console.error("Error adding document: ", error);
     }
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const productData = {
-      productName,
-      description,
-      price,
-      category,
-      dimensions: { weight, height, width, length, unit },
-      brand: brand === 'Brand' ? brandName : 'No Brand',
-      warranty: warranty === 'Warranty' ? warrantyPeriod : 'No Warranty',
-      highlights,
-      images, // Include images in the product data
-    };
-    console.log(productData);
-  };
-
+  
   const backToHome = () => {
     window.location.href = '/';
   };
@@ -80,7 +144,7 @@ export default function AddProduct() {
     <div className="container mx-auto p-4 bg-gray-100 min-h-screen">
       <Head>
         <title>Add Product - Amazone 2.0</title> {/* Change the title here */}
-        <link rel="icon" href="/logo.png" /> 
+        <link rel="icon" href="/logo.png" />
       </Head>
       <h1 className="text-3xl font-bold text-center my-6 text-teal-600">Add New Product</h1>
       <form onSubmit={handleSubmit} className="bg-gray-50 p-6 rounded-lg shadow-md max-w-2xl mx-auto">
@@ -313,7 +377,7 @@ export default function AddProduct() {
           <button
             type="submit"
             className="bg-teal-600 text-white font-bold py-2 px-4 rounded hover:bg-teal-700 transition duration-200"
-            onSubmit={SubmitData}
+            onSubmit={handleSubmit}
           >
             Submit Product
           </button>

@@ -17,6 +17,7 @@ module.exports = {
           Scroll:'#37475a',
           Footer:'#222f3d',
           FooterLastPart:'#131a22',
+          location:'#cccccc',
         }
       }
     },
