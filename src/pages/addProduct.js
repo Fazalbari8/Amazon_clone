@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState ,useEffect } from 'react';
 import { db, storage } from '../firebase'; // Make sure this path is correct
 import { collection, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -19,7 +19,25 @@ export default function AddProduct() {
   const [warrantyPeriod, setWarrantyPeriod] = useState('');
   const [highlights, setHighlights] = useState('');
   const [unit, setUnit] = useState('kg');
-  const [images, setImages] = useState([]); // State for images
+  const [images, setImages] = useState([]);
+  const [countries, setCountries] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState('');
+
+  useEffect(() => {
+
+    const fetchCountries = async () => {
+      try {
+        const response = await fetch("https://restcountries.com/v3.1/all");
+        const data = await response.json();
+        setCountries(data);
+      } catch (error) {
+        console.error("Error fetching countries: ", error);
+      }
+    };
+
+    fetchCountries();
+  }, []);
+
   // const SubmitData = async (e) => {
   //   e.preventDefault();
   //   console.log("sss")
@@ -84,19 +102,19 @@ export default function AddProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (images.length === 0) {
       alert("Please upload at least one image.");
       return;
     }
-  
+
     try {
       const imageUrls = await Promise.all(images.map(async (image) => {
         const storageRef = ref(storage, `images/${image.name}`);
         await uploadBytes(storageRef, image);
         return await getDownloadURL(storageRef);
       }));
-  
+
       const docRef = await addDoc(collection(db, 'products'), {
         name: productName,
         price: parseFloat(price),
@@ -109,20 +127,23 @@ export default function AddProduct() {
         brand: brand === 'Brand' ? brandName : 'No Brand',
         warranty: warranty === 'Warranty' ? warrantyPeriod : 'No Warranty',
         highlights: highlights,
-        imageUrl: imageUrls, // Storing multiple image URLs
+        imageUrl: imageUrls,
+        country: selectedCountry, 
       });
-  
+
       console.log("Document written with ID: ", docRef.id);
       setProductName('');
       setPrice('');
       setDescription('');
       setImages([]);
-  
+      setSelectedCountry('');
+
     } catch (error) {
       console.error("Error adding document: ", error);
     }
   };
-  
+
+
   const backToHome = () => {
     window.location.href = '/';
   };
@@ -139,6 +160,8 @@ export default function AddProduct() {
     }
     setImages((prevImages) => [...prevImages, ...files]);
   };
+
+
 
   return (
     <div className="container mx-auto p-4 bg-gray-100 min-h-screen">
@@ -233,7 +256,7 @@ export default function AddProduct() {
                 className="ml-2 border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-teal-400"
               >
                 <option value="kg">kg</option>
-                <option value="g">grams</option>
+                <option value="g">g</option>
               </select>
             </div>
           </div>
@@ -363,6 +386,22 @@ export default function AddProduct() {
               ))}
             </div>
           )}
+        </div>
+         {/* Country Input */}
+        <div className='mb-4 border border-gray-300 p-2'>
+          <form onSubmit={handleSubmit}>
+            <label className='block text-teal-800 font-bold mb-2'>
+              Country:
+              <select className='w-full p-2 justify-center ' value={selectedCountry} onChange={(e) => setSelectedCountry(e.target.value)}>
+                <option value="">Select Country</option>
+                {countries.map((country) => (
+                  <option key={country.cca3} value={country.name.common}>
+                    {country.name.common}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </form>
         </div>
 
         {/* Submit Button */}

@@ -1,8 +1,10 @@
 import React from 'react';
-import { Select, Space } from 'antd';
+import { Select as AntSelect, Space } from 'antd';
+
 const handleChange = (value) => {
   console.log(`selected ${value}`);
 };
+
 const options = [
   {
     label: 'China',
@@ -29,13 +31,14 @@ const options = [
     desc: 'Korea (韩国)',
   },
 ];
+
 const Select = () => (
-  <Select
+  <AntSelect
     mode="multiple"
     style={{
       width: '100%',
     }}
-    placeholder="select one country"
+    placeholder="Select one country"
     defaultValue={['china']}
     onChange={handleChange}
     options={options}
@@ -49,4 +52,5 @@ const Select = () => (
     )}
   />
 );
+
 export default Select;

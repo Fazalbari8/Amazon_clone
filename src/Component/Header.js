@@ -31,6 +31,12 @@ const Header = () => {
         router.push('/signIn');
     };
 
+    const handleHomeClick =() => {
+        router.push('/home')
+    }
+
+   
+
     const handleAddProductClick = () => {
         router.push('/addProduct');
     };
@@ -49,14 +55,15 @@ const Header = () => {
         <>
             <header>
                 {/* Top Nav */}
-                <div className='flex items-center bg-amazon_blue p-1 flex-grow py-2'>
-                    <div className='mt-2 flex items-center flex-grow sm:flex-grow-0 ml-2 pr-2'>
+                <div className='flex items-center bg-amazon_blue p-1 flex-grow py-2' >
+                    <div className='mt-2 flex items-center flex-grow sm:flex-grow-0 ml-2 pr-2' onClick={handleHomeClick} >
                         <Image
                             src='https://links.papareact.com/f90'
                             width={100}
                             height={40}
                             objectFit='contain'
                             className='cursor-pointer'
+                            
                         />
                     </div>
                     <div className="align-start justify-start cursor-pointer mr-2 hidden md:block"
@@ -191,7 +198,7 @@ const Header = () => {
                     {/* Add Product Button */}
                     <button
                         onClick={handleAddProductClick}
-                        className='link border-2 border-white px-2 py-1 rounded-full'
+                        className='link border-2 border-white px-2 py-1 rounded-full hidden sm:block'
                     >
                         <MdOutlineAdd className='h-5 w-5 inline' /> Add Product
                     </button>
