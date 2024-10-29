@@ -128,10 +128,11 @@ export default function AddProduct() {
         warranty: warranty === 'Warranty' ? warrantyPeriod : 'No Warranty',
         highlights: highlights,
         imageUrl: imageUrls,
-        country: selectedCountry, 
+        country: selectedCountry,
+        rating: 1, 
       });
 
-      console.log("Document written with ID: ", docRef.id);
+      console.log("Document written with ID: ", docRef ?.id);
       setProductName('');
       setPrice('');
       setDescription('');
@@ -141,6 +142,7 @@ export default function AddProduct() {
     } catch (error) {
       console.error("Error adding document: ", error);
     }
+    console.log(docRef?.id)
   };
 
 

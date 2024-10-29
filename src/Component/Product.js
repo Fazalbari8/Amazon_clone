@@ -1,15 +1,14 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { StarIcon } from "@heroicons/react/solid";
-import Currency from "react-currency-formatter";
+
 
 const Max_RATING = 5;
-const Min_RATING = 1;
+const Min_RATING = 1;   
 
 function ProductComp({ id, title, price, description, category, image }) {
     const [rating, setRating] = useState(Min_RATING); // Initialize with a fixed value
     const [hasPrime, setHasPrime] = useState(false); // Initialize with a default value
-    const [toogle, setToogle] = useState(false);
 
     useEffect(() => {
         // Run on the client-side
@@ -39,7 +38,7 @@ function ProductComp({ id, title, price, description, category, image }) {
             <p className="text-xs my-2 line-clamp-2">{description}</p>
 
             <div className="mb-5">
-                <Currency quantity={price} currency="USD" />
+             <p>${price}</p>
             </div>
 
             {hasPrime && (

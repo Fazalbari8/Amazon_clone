@@ -1,10 +1,10 @@
+
 import HomePage from '@/Component/Scroll';
 import Head from 'next/head';
 import Image from 'next/image';
 import { PiArrowSquareRightFill } from "react-icons/pi";
 
-
-export default function Home() {
+const Home=()=> {
     return (
         <div>
             <Head>
@@ -44,7 +44,7 @@ export default function Home() {
                     />
                     <h3 className="text-center text-lg font-semibold">Clothes</h3>
                     <p className="text-[#007185] text-sm hover:underline cursor-pointer">See More <PiArrowSquareRightFill />
-                    </p>  
+                    </p>
                 </div>
 
                 {/* Category 2 */}
@@ -58,7 +58,7 @@ export default function Home() {
                     />
                     <h3 className="text-center text-lg font-semibold">Health & Personal Care</h3>
                     <p className="text-[#007185] text-sm hover:underline cursor-pointer">See More <PiArrowSquareRightFill />
-                    </p>  
+                    </p>
                 </div>
 
                 {/* Category 3 */}
@@ -72,7 +72,7 @@ export default function Home() {
                     />
                     <h3 className="text-center text-lg font-semibold">Ferniture</h3>
                     <p className="text-[#007185] text-sm hover:underline cursor-pointer">See More <PiArrowSquareRightFill />
-                    </p>  
+                    </p>
                 </div>
 
                 {/* Category 4 */}
@@ -86,7 +86,7 @@ export default function Home() {
                     />
                     <h3 className="text-center text-lg font-semibold">Mobiles</h3>
                     <p className="text-[#007185] text-sm hover:underline cursor-pointer">See More <PiArrowSquareRightFill />
-                    </p>  
+                    </p>
                 </div>
 
                 {/* Category 5 */}
@@ -100,7 +100,7 @@ export default function Home() {
                     />
                     <h3 className="text-center text-lg font-semibold">Beauty Pics</h3>
                     <p className="text-[#007185] text-sm hover:underline cursor-pointer">See More <PiArrowSquareRightFill />
-                    </p>  
+                    </p>
                 </div>
 
                 {/* Category 6 */}
@@ -114,7 +114,7 @@ export default function Home() {
                     />
                     <h3 className="text-center text-lg font-semibold">Pet Care</h3>
                     <p className="text-[#007185] text-sm hover:underline cursor-pointer">See More <PiArrowSquareRightFill />
-                    </p>  
+                    </p>
                 </div>
 
                 {/* Category 7 */}
@@ -128,7 +128,7 @@ export default function Home() {
                     />
                     <h3 className="text-center text-lg font-semibold">New Arrival in Toys</h3>
                     <p className="text-[#007185] text-sm hover:underline cursor-pointer">See More <PiArrowSquareRightFill />
-                    </p>  
+                    </p>
                 </div>
 
                 {/* Category 8 */}
@@ -142,10 +142,15 @@ export default function Home() {
                     />
                     <h3 className="text-center text-lg font-semibold">Discover Fashion Trends</h3>
                     <p className="text-[#007185] text-sm hover:underline cursor-pointer">See More <PiArrowSquareRightFill />
-                    </p>  
+                    </p>
                 </div>
             </div>
             <HomePage />
-        </div>
+            {/* <Dashboard/>  */}
+       </div>
     );
 }
+
+
+
+export default Home
