@@ -2,14 +2,13 @@
 import { db } from '@/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import React, { useState, useEffect } from 'react';
-
 import { StarIcon } from "@heroicons/react/solid";
 import Image from 'next/image';
 
 
 const Max_RATING = 5;
 const Min_RATING = 1;
-const Card = ({ name, price, imageUrl, brand,category, description  }) => {
+const Card = ({ name, price, imageUrl, brand,category, description ,warranty }) => {
     console.log(imageUrl[0],)
     const [rating, setRating] = useState(Min_RATING);
     const [hasPrime, setHasPrime] = useState(false); // Initialize with a default value
@@ -44,9 +43,13 @@ const Card = ({ name, price, imageUrl, brand,category, description  }) => {
             <div className="mb-5">
               <p>${price}</p>
             </div>
-            {hasPrime && (
+            {hasPrime ? (
                 <div className="flex items-center space-x-2 -mt-5">
                     <p className="text-xs text-gray-500 mb-5">{brand}</p>
+                </div>
+            ):(
+                <div className="flex items-center space-x-2 -mt-5">
+                    <p className="text-xs text-gray-500 mb-5">{warranty}</p>
                 </div>
             )}
             <button className="mt-auto button">Add to Basket</button>
