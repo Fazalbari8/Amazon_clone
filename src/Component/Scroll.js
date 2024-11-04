@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-// import { FaArrowUp } from "react-icons/fa";
 
-const HomePage = () => {
+const BackToTop = () => {
   const [showButton, setShowButton] = useState(false);
 
   // Show the button when the page is scrolled down
@@ -42,4 +41,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default BackToTop;

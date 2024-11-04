@@ -6,6 +6,7 @@ import { IoMenu } from "react-icons/io5";
 import { useRouter } from 'next/router';
 import { MdOutlineAdd } from "react-icons/md";
 import { TbTruckDelivery } from "react-icons/tb";
+import { useSelector } from 'react-redux';
 
 
 const Header = () => {
@@ -15,6 +16,9 @@ const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState('Pakistan'); // State for selected country
     const [zipCode, setZipCode] = useState('');
+    const [openCart, setOpenCart] = useState(false);
+
+    const item = useSelector((state)=>state.cart)
 
     // Function to close the modal
     const closeModal = () => {
@@ -172,8 +176,8 @@ const Header = () => {
                             <p>Returns</p>
                             <p className='font-extrabold md:text-sm'>& Orders</p>
                         </div>
-                        <div className='relative flex items-center cursor-pointer link'>
-                            <span className='absolute top-0 right-0 md:right-10 h-4 w-4 bg-yellow-400 text-center text-black font-bold rounded-full'>0</span>
+                        <div className='relative flex items-center cursor-pointer link' onClick={()=>router.push('/cart')}>
+                            <span className='absolute top-0 right-0 md:right-10 h-4 w-4 bg-yellow-400 text-center text-black font-bold rounded-full'>{item.length}</span>
                             <FaShoppingCart className='h-10' />
                             <p className='hidden md:inline font-extrabold md:text-sm mt-2'>Basket</p>
                         </div>

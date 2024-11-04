@@ -22,7 +22,7 @@ export default function AddProduct() {
   const [images, setImages] = useState([]);
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('');
-
+  const [randomNumber, setRandomNumber] = useState(null);
   useEffect(() => {
 
     const fetchCountries = async () => {
@@ -116,6 +116,7 @@ export default function AddProduct() {
       }));
 
       const docRef = await addDoc(collection(db, 'products'), {
+        // id : Math.floor(Math.random() * (100 - 1 + 1))+1,
         name: productName,
         price: parseFloat(price),
         description: description,
@@ -132,7 +133,7 @@ export default function AddProduct() {
         rating: 1, 
       });
 
-      console.log("Document written with ID: ", docRef ?.id);
+    
       setProductName('');
       setPrice('');
       setDescription('');

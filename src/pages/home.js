@@ -1,5 +1,5 @@
 
-import HomePage from '@/Component/Scroll';
+import BackToTop from '@/Component/Scroll';
 import Head from 'next/head';
 import Image from 'next/image';
 import { PiArrowSquareRightFill } from "react-icons/pi";
@@ -145,7 +145,7 @@ const Home=()=> {
                     </p>
                 </div>
             </div>
-            <HomePage />
+            <BackToTop />
             {/* <Dashboard/>  */}
        </div>
     );

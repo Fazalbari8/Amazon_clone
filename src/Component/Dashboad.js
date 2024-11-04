@@ -201,7 +201,7 @@ const Dashboard = () => {
               </p>
             </div>
           </div>
-          <HomePage />
+          <BackToTop />
           <Dashboard />
         {/* </div> */}
       </Content>
